@@ -19,7 +19,7 @@ export function Product(){
             setProduct(response.data)
         }
         getProducts()
-    },[])
+    },[id])
 
     function handleAddCartItem(product:ProductProps){
         toast.success("Produto adicionado ao carrinho!")
