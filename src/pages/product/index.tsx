@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {api} from '../../services/api'
 import { useEffect, useState } from 'react'
 import { ProductProps } from '../home'
@@ -12,6 +12,8 @@ export function Product(){
     const { id } = useParams()
     const { addItemCart } = useContext(CartContext)
     const [product, setProduct] = useState<ProductProps>()
+    
+    const navigate = useNavigate()
 
     useEffect(()=>{
         async function getProducts(){
@@ -24,6 +26,7 @@ export function Product(){
     function handleAddCartItem(product:ProductProps){
         toast.success("Produto adicionado ao carrinho!")
         addItemCart(product)
+        navigate('/cart')
     }
     
 
