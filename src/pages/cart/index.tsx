@@ -8,7 +8,7 @@ export function Cart(){
 
 
     return (
-        <div className="w-full max-w-7xl px-4 max-auto">
+        <div className="w-full flex flex-col justify-center px-4 max-auto">
             <h1 className="font-medium text-2xl text-center my-4">Seu carrinho</h1>
             {cart.length === 0 && (
                 <div className="flex flex-col items-center justify-center">

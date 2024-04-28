@@ -5,6 +5,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { api } from '../../services/api'
 import { CartContext } from "../../contexts/CartContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 
 export interface ProductProps{
@@ -41,17 +42,19 @@ export function Home(){
                 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
                    {products.map((product) => (
-                     <section key={product.id} className="w-full ">
+                     <Link to={`/products/${product.id}`}>
+                        <section key={product.id} className="w-full ">
                         <img src={product.cover} alt={product.title} className="w-full rounded-lg max-h-70 mb-2"/>    
                         <p className="font-medium mt-1 mb-2">{product.title}</p>
 
                         <div className="flex gap-3 items-center">
                             <strong className="text-zinc-700/90">R$ {product.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}</strong>
-                            <button className="bg-zinc-900 p-1 rounded" onClick={() => handleAddCartItem(product)}>
+                            <button className="bg-zinc-900 p-1 rounded hover:bg-zinc-900/70" onClick={() => handleAddCartItem(product)}>
                                 <BsCartPlus size={20} color="#FFF"/>
                             </button>
                         </div>                  
                     </section>
+                     </Link>
                    ))}
                 </div>
             </main>
