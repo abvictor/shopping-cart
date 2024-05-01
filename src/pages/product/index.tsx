@@ -13,19 +13,10 @@ export function Product(){
 
     const { id } = useParams()
     const { addItemCart } = useContext(CartContext)
-    // const [product, setProduct] = useState<ProductProps>()
 
-    const { document: product, loading } = useFetchDocument("products", id);
+    const { document: product } = useFetchDocument("products", id!);
     
     const navigate = useNavigate()
-
-    // useEffect(()=>{
-    //     async function getProducts(){
-    //         const response = await api.get(`/products/${id}`)
-    //         setProduct(response.data)
-    //     }
-    //     getProducts()
-    // },[id])
 
     function handleAddCartItem(product:ProductProps){
         toast.success("Produto adicionado ao carrinho!")
@@ -33,7 +24,6 @@ export function Product(){
         navigate('/cart')
     }
     
-
     return (
         <div className='max-w-full flex justify-center'>
             <section className='flex mt-10 max-w-7xl h-auto px-4 p-1 rounded'>
