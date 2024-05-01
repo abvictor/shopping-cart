@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import {useContext} from 'react'
 import { BsCartPlus } from "react-icons/bs";
 
-import { api } from '../../services/api'
 import { CartContext } from "../../contexts/CartContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+
+import { db } from '../../services/firebase/firebaseConnection'
+import {collection, onSnapshot} from 'firebase/firestore'
 
 export interface ProductProps{
     id: number;
@@ -20,13 +22,29 @@ export function Home(){
     const [products, setProducts] = useState<ProductProps[]>([])
     const { addItemCart } = useContext(CartContext)
 
-    useEffect(()=>{
-        async function getProducts(){
-            const response = await api.get("/products")
-            setProducts(response.data)
-        }
-        getProducts()
-    },[])
+
+    useEffect(() => {
+      const unsub = onSnapshot(collection(db, "products"), (snapshot) => {
+          const productsList: ProductProps[] = [];
+          
+          snapshot.forEach((doc) => {
+              const product: ProductProps = {
+                  id: doc.id, // Aqui você está acessando o ID do documento
+                  title: doc.data().title,
+                  description: doc.data().description,
+                  price: doc.data().price,
+                  cover: doc.data().cover,
+              };
+              
+              productsList.push(product);
+          });
+          setProducts(productsList);
+      });
+  
+      return () => unsub();
+  }, []);
+
+      console.log(products)
 
 
     function handleAddCartItem(product:ProductProps){
@@ -42,13 +60,13 @@ export function Home(){
                 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
                    {products.map((product) => (
-                     <Link to={`/products/${product.id}`}>
-                        <section key={product.id} className="w-full ">
+                     <Link to={`/product/${product.id}`} key={product.id}>
+                        <section className="w-full ">
                         <img src={product.cover} alt={product.title} className="w-full rounded-lg max-h-70 mb-2"/>    
                         <p className="font-medium mt-1 mb-2">{product.title}</p>
 
                         <div className="flex gap-3 items-center">
-                            <strong className="text-zinc-700/90">R$ {product.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}</strong>
+                            <strong className="text-zinc-700/90">{product.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}</strong>
                             <button className="bg-zinc-900 p-1 rounded hover:bg-zinc-900/70" onClick={() => handleAddCartItem(product)}>
                                 <BsCartPlus size={20} color="#FFF"/>
                             </button>

@@ -1,27 +1,29 @@
 import {useParams, useNavigate} from 'react-router-dom'
-import {api} from '../../services/api'
-import { useEffect, useState } from 'react'
 import { ProductProps } from '../home'
 import { BsCartPlus } from 'react-icons/bs'
 import toast from 'react-hot-toast'
 import { CartContext } from "../../contexts/CartContext";
 import {useContext} from 'react'
+import { useFetchDocument } from '../../hooks/useFetchDocument'
 
 export function Product(){
 
     const { id } = useParams()
     const { addItemCart } = useContext(CartContext)
-    const [product, setProduct] = useState<ProductProps>()
+    // const [product, setProduct] = useState<ProductProps>()
+
+    const { document: product, loading } = useFetchDocument("products", id);
+    console.log(product)
     
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        async function getProducts(){
-            const response = await api.get(`/products/${id}`)
-            setProduct(response.data)
-        }
-        getProducts()
-    },[id])
+    // useEffect(()=>{
+    //     async function getProducts(){
+    //         const response = await api.get(`/products/${id}`)
+    //         setProduct(response.data)
+    //     }
+    //     getProducts()
+    // },[id])
 
     function handleAddCartItem(product:ProductProps){
         toast.success("Produto adicionado ao carrinho!")
