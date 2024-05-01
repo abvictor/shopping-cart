@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { CartContext } from "../../contexts/CartContext"
 import { Link } from "react-router-dom"
+import { ProductProps } from "../home"
 
 export function Cart(){
 
@@ -31,7 +32,7 @@ export function Cart(){
                  <div className="flex items-center gap-3">
                      <button className="bg-slate-600 rounded px-2 text-white font-medium flex items-center justify-center" onClick={()=> removeItemCart(item)}>-</button>
                          {item.amount}
-                     <button className="bg-slate-600 rounded px-2 text-white font-medium flex items-center justify-center" onClick={() => addItemCart(item)}>+</button>
+                     <button className="bg-slate-600 rounded px-2 text-white font-medium flex items-center justify-center" onClick={() => addItemCart(item as ProductProps)}>+</button>
                  </div>
  
                  <strong className="float-right">
