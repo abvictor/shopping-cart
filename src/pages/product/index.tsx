@@ -1,10 +1,13 @@
+import {useContext} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
+
 import { ProductProps } from '../home'
+
+import { CartContext } from "../../contexts/CartContext";
+import { useFetchDocument } from '../../hooks/useFetchDocument'
+
 import { BsCartPlus } from 'react-icons/bs'
 import toast from 'react-hot-toast'
-import { CartContext } from "../../contexts/CartContext";
-import {useContext} from 'react'
-import { useFetchDocument } from '../../hooks/useFetchDocument'
 
 export function Product(){
 
@@ -13,7 +16,6 @@ export function Product(){
     // const [product, setProduct] = useState<ProductProps>()
 
     const { document: product, loading } = useFetchDocument("products", id);
-    console.log(product)
     
     const navigate = useNavigate()
 

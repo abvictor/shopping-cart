@@ -11,7 +11,7 @@ import { db } from '../../services/firebase/firebaseConnection'
 import {collection, onSnapshot} from 'firebase/firestore'
 
 export interface ProductProps{
-    id: number;
+    id: string;
     title: string;
     description: string;
     price: number;
@@ -29,7 +29,7 @@ export function Home(){
           
           snapshot.forEach((doc) => {
               const product: ProductProps = {
-                  id: doc.id, // Aqui você está acessando o ID do documento
+                  id: doc.id,
                   title: doc.data().title,
                   description: doc.data().description,
                   price: doc.data().price,

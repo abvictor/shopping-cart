@@ -7,7 +7,6 @@ import CartProvider from './contexts/CartContext'
 import { Toaster } from 'react-hot-toast'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
     <CartProvider>
     <Toaster
       position='top-right'
@@ -15,5 +14,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     />
       <RouterProvider router={router}/>
     </CartProvider>
-  </React.StrictMode>,
 )
