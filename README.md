@@ -5,18 +5,11 @@
 
 ## Sobre o projeto
 
-Projeto baseado em um sistema de pedidos de restaurantes, onde o usuário poderá criar seu pedido informando a mesa e os itens, além de cancelar ou finalizar pedidos até chegar ao consumidor final.
-
+Projeto inspirado em um sistema de carrinho de compras, onde o usuário pode adicionar itens ou remover.
+Os itens adicionados ou removidos tem seu preço e quantidade total atualizados em tempo real no carrinho.
 
 ### As tecnologias usadas foram:
-- Next JS
+- React JS
 - TypeScript
-- Sass
+- CSS
 - Context API 
-- API
-- Express
-- Prisma
-- Postgres
-
-
-
